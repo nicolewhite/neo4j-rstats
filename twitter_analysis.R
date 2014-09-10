@@ -1,4 +1,5 @@
 ### Twitter dataset.
+library(RNeo4j)
 
 # Connect to graph and explore.
 graph = startGraph("NEO4J_URL")
