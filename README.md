@@ -10,6 +10,14 @@ curl -XPOST -u customer_id:customer_secret 'https://api.twitter.com/oauth2/token
 export TWITTER_BEARER=the twitter bearer returned from the previous line
 ```
 
+Install py2neo:
+
+```
+pip install py2neo
+# OR
+easy_install py2neo
+```
+
 Start neo4j, taking note of which port you're running it on. If you're running at http://localhost:7474/db/data/, you can start populating the database with:
 
 ```
@@ -17,4 +25,3 @@ python collect_keyword.py 7474 rstats
 ```
 
 The first argument, 7474, is which port you're running neo4j on and the second argument, rstats, is the keyword by which you want to search for tweets.
-
