@@ -2,7 +2,7 @@
 library(RNeo4j)
 
 # Connect to graph and explore.
-graph = startGraph("NEO4J_URL")
+graph = startGraph("http://localhost:2794/db/data/")
 summary(graph)
 
 getConstraint(graph)
@@ -102,41 +102,3 @@ wordcloud(words = d$word,
           scale = c(8,.3), 
           random.order = F,
           colors = pal)
-
-### igraph
-library(igraph)
-
-# Graph algos.
-query = "
-MATCH (u1:User)-[:POSTS]->(:Tweet)<-[:TAGS]-(h:Hashtag)-[:TAGS]->(:Tweet)<-[:POSTS]-(u2:User)
-WHERE h.name <> 'rstats' AND (ID(u1) < ID(u2))
-RETURN u1.screen_name, u2.screen_name, COUNT(*) AS weight
-"
-
-users = cypher(graph, query)
-
-g = graph.data.frame(users, directed = F)
-
-# Remove text labels and plot.
-V(g)$label = NA
-V(g)$size = 4
-V(g)$color = "cyan"
-plot(g)
-
-# Make size of node a function of its betweenness.
-V(g)$size = betweenness(g) / 100
-plot(g)
-
-# Clustering.
-cluster = edge.betweenness.community(g, directed = F)$membership
-
-colors = rainbow(max(cluster))
-
-V(g)$color = colors[cluster]
-V(g)$size = 4
-plot(g)
-
-# Linear algebra things.
-lap = as.matrix(graph.laplacian(g))
-lap[1:5, 1:5]
-eigens = eigen(lap)$values
