@@ -25,3 +25,5 @@ python collect_keyword.py 7474 rstats
 ```
 
 The first argument, 7474, is which port you're running neo4j on and the second argument, rstats, is the keyword by which you want to search for tweets.
+
+<a href="http://i.imgur.com/1wLGqs6.png" target="_blank"><img src="http://i.imgur.com/1wLGqs6.png" width="100%" height="100%"></a>
