@@ -7,8 +7,8 @@ summary(graph)
 
 getConstraint(graph)
 
-user = getNodes(graph, "MATCH (u:User) RETURN u LIMIT 1")
-tweet = getNodes(graph, "MATCH (t:Tweet) RETURN t LIMIT 1")
+user = getSingleNode(graph, "MATCH (u:User) RETURN u LIMIT 1")
+tweet = getSingleNode(graph, "MATCH (t:Tweet) RETURN t LIMIT 1")
 
 # Calculate correlation between # of hashtags and # of retweets.
 query = "

@@ -2,7 +2,10 @@
 library(RNeo4j)
 
 # Connect to the graph.
-graph = startGraph("NEO4J_URL")
+graph = startGraph("http://localhost:2259/db/data/")
+
+# Delete everything.
+clear(graph)
 
 # Add uniqueness constraint.
 addConstraint(graph, "Person", "name")
