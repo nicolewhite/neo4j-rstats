@@ -1,7 +1,9 @@
 graphs_r_cool
 =============
 
-To create your own neo4j graph db of Twitter data:
+Download a zip file of the Neo4j database [here](https://www.dropbox.com/s/csponqu0c1wsgf1/rstats_tweets.db.zip?dl=0).
+
+Or, if you want to create your own Neo4j graph of Twitter data:
 
 Get a [bearer token](https://dev.twitter.com/docs/auth/application-only-auth):
 
