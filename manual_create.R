@@ -1,40 +1,25 @@
-### Prototyping data models.
 library(RNeo4j)
 
-# Connect to the graph.
-graph = startGraph("http://localhost:2259/db/data/")
+neo4j = startGraph("http://localhost:7474/db/data/")
 
-# Delete everything.
 clear(graph)
 
-# Add uniqueness constraint.
 addConstraint(graph, "Person", "name")
 
-# Create people.
-nicole = createNode(graph, "Person", name = "Nicole", male = F)
-kenny = createNode(graph, "Person", name = "Kenny", male = T)
-greta = createNode(graph, "Person", name = "Greta", male = F)
-hank = createNode(graph, "Person", name = "Hank", male = T)
+alice = createNode(neo4j, "Person", name = "Alice")
+bob = createNode(neo4j, "Person", name = "Bob")
+charles = createNode(neo4j, "Person", name = "Charles")
+david = createNode(neo4j, "Person", name = "David")
+elaine = createNode(neo4j, "Person", name = "Elaine")
 
-# Add more uniqueness constraints.
-addConstraint(graph, "BoardGame", "name")
-addConstraint(graph, "ComputerGame", "name")
+r1 = createRel(alice, "KNOWS", bob, weight = 0.5)
+r2 = createRel(bob, "KNOWS", charles, weight = 0.5)
+r3 = createRel(bob, "KNOWS", david, weight = 1.5)
+r4 = createRel(charles, "KNOWS", david, weight = 0.5)
+r5 = createRel(alice, "KNOWS", elaine, weight = 2)
+r6 = createRel(elaine, "KNOWS", david, weight = 0.5)
 
-# Create games.
-risk = createNode(graph, "BoardGame", name = "RISK", max_players = c(5,6))
-settlers = createNode(graph, "BoardGame", name = "Settlers of Catan", max_players = 4)
-
-lol = createNode(graph, "ComputerGame", name = "League of Legends", max_players = 10)
-sc = createNode(graph, "ComputerGame", name = "Starcraft", max_players = 8)
-
-# Create relationships.
-rel = createRel(greta, "PLAYS", risk, color = "Red")
-
-rels_h = lapply(list(risk, lol), function(g) createRel(hank, "PLAYS", g))
-rels_k = lapply(list(risk, lol, sc), function(g) createRel(kenny, "PLAYS", g))
-
-all_games = getNodes(graph, "MATCH n WHERE n:BoardGame OR n:ComputerGame RETURN n")
-rels_n = lapply(all_games, function(g) createRel(nicole, "PLAYS", g))
-
-# Open the browser.
 browse(graph)
+
+p = shortestPath(alice, "KNOWS", david, max_depth = 4)
+p = dijkstra(alice, "KNOWS", david, cost_property="weight")

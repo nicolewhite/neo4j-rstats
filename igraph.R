@@ -1,15 +1,14 @@
-library(igraph)
-library(RNeo4j)
+KEYWORD = Sys.getenv("KEYWORD")
 
-graph = startGraph("http://localhost:2794/db/data/")
+library(igraph)
 
 # Users are connected if they've tweeted the same hashtag.
 # Edges are weighted by how many times the users have tweeted the same hashtag.
 # Undirected.
 query = "
 MATCH (u1:User)-[:POSTS]->(:Tweet)<-[:TAGS]-(h:Hashtag)-[:TAGS]->(:Tweet)<-[:POSTS]-(u2:User)
-WHERE h.name <> 'rstats' AND (ID(u1) < ID(u2))
-RETURN u1.screen_name, u2.screen_name, COUNT(*) AS weight
+WHERE h.name <> {keyword} AND (ID(u1) < ID(u2))
+RETURN u1.username, u2.username, COUNT(*) AS weight
 "
 
 # Hashtags are connected if they've been tweeted together.
@@ -17,13 +16,12 @@ RETURN u1.screen_name, u2.screen_name, COUNT(*) AS weight
 # Undirected.
 query = "
 MATCH (h1:Hashtag)-[:TAGS]->(:Tweet)<-[:TAGS]-(h2:Hashtag)
-WHERE h1.name <> 'rstats' AND h2.name <> 'rstats' AND (ID(h1) < ID(h2))
+WHERE h1.name <> {keyword} AND (ID(h1) < ID(h2))
 RETURN h1.name, h2.name, COUNT(*) AS weight
 "
 
 ##################################################################################
-data = cypher(graph, query)
-
+data = cypher(graph, query, keyword=KEYWORD)
 g = graph.data.frame(data, directed = F)
 
 # Remove text labels and plot.
