@@ -102,7 +102,7 @@ pal = brewer.pal(7,"Dark2")
 
 wordcloud(words = d$word, 
           freq = d$freq,
-          min.freq = 12,
+          min.freq = 3,
           scale = c(8,.3), 
           random.order = F,
           colors = pal)
