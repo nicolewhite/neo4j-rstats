@@ -33,7 +33,8 @@ renderPlot({
   "
   
   data = cypher(graph, query, hashtag=input$hashtag)
-  ggplot(data, aes(x=hashtag, y=count)) + geom_bar(stat="identity")
+  data = transform(data, hashtag = reorder(hashtag, count))
+  ggplot(data, aes(x=hashtag, y=count)) + geom_bar(stat="identity") + coord_flip()
 })
 ```
 
