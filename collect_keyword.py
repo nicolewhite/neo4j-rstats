@@ -88,9 +88,13 @@ since_id = -1
 
 while True:
     try:
-        print(since_id)
-
         tweets = find_tweets(sys.argv[1], since_id=since_id)
+
+        if not tweets:
+            print("No tweets found.")
+            time.sleep(60)
+            continue
+
         since_id = tweets[0].get('id')
         upload_tweets(tweets)
 
