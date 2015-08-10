@@ -1,5 +1,9 @@
-graphs_r_cool
+neo4j_python_r
 =============
+
+Examples of using Neo4j with Python and R.
+
+## Twitter Dataset
 
 If you want to create your own Neo4j graph of Twitter data:
 
@@ -29,10 +33,4 @@ Then, collect tweets with keyword `keyword`:
 
 ```
 python collect_keyword.py keyword
-```
-
-Set an environment variable for which word you want to be ignored in the R scripts:
-
-```
-export KEYWORD=keyword
 ```
