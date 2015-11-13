@@ -1,3 +1,6 @@
+*.md
+build
+
 .idea
 .DS_Store
 
