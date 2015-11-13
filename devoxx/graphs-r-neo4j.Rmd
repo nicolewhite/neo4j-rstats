@@ -370,3 +370,5 @@ d[1, c(1:3, 6)]
 ## Questions?
 
 <center><h2>@_nicolemargaret</h2></center>
+<br>
+<center><h2>github.com/nicolewhite/RNeo4j</h2></center>
