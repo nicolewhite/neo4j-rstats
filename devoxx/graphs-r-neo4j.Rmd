@@ -65,6 +65,24 @@ opts_chunk$set(comment=NA, warning=FALSE, message=FALSE)
 
 ## Example: YouTube
 
+Who subscribes to channels operated by David?
+
+### SQL
+
+```
+SELECT sub.Name
+FROM Users
+JOIN Users_Channels
+ON Users.ID = Users_Channels.UserID AND
+   Users.Name = "David"
+JOIN Users_Subscriptions
+ON Users_Channels.ChannelID = Users_Subscriptions.ChannelID
+JOIN Users sub
+ON Users.ID = Users_Subscriptions.UserID;
+```
+
+## Example: YouTube
+
 <img src="img/modeling4.png" width="100%" height="100%">
 
 ## Example: YouTube
@@ -86,6 +104,18 @@ opts_chunk$set(comment=NA, warning=FALSE, message=FALSE)
 ## Example: YouTube
 
 <img src="img/modeling9.png" width="100%" height="100%">
+
+## Example: YouTube
+
+Who subscribes to channels operated by David?
+
+### Cypher
+
+```
+MATCH (u:User)-[:SUBSCRIBED]->(:Channel)<-[:OPERATES]-(d:User)
+WHERE d.name = "David"
+RETURN u.name;
+```
 
 # RNeo4j
 
