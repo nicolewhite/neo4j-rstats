@@ -2,8 +2,7 @@
 title: "Graphs with R and Neo4j"
 author: "@_nicolemargaret"
 output: ioslides_presentation
-width: 1920
-height: 1080
+widescreen: true
 ---
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
